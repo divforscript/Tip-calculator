@@ -1,4 +1,4 @@
-let var1 = 5.32
+let var1 = Number("32rt")
 
-console.log(var1)
+console.log(1 && var1)
 

@@ -1,29 +1,8 @@
 const rootVar = document.documentElement.style;
 const peopleZero = document.querySelector("#people-zero");
 
-const bodyDiv = document.querySelector("body")
 
-
-// bodyDiv.onclick = () => {
-//   billMount.style.setProperty("border","none")
-//   peopleNum.style.setProperty("border","none")
-// }
-
-// let pressedKey = ""
-// let inputStr = ""
-// let inputNum = 0
-
-// let isBillHover = 0
-// let isBillFocus = 0
-
-// let isPeopleHover = 0
-// let isPeopleFocus = 0
-
-// let isCustomHover = 0
-// let isCustomFocus = 0
-
-
-// FUNCTIONS
+// HANDLE INPUT-BOXES FUNCTIONS
 // Both: bill-input-wrapper and people-input-wrapper
 const handleInitialZero = (event,pressKey,inputStr,inputNum) => {
   //for onkeydown events
@@ -38,16 +17,17 @@ const handleInitialZero = (event,pressKey,inputStr,inputNum) => {
 }
 
 
-const handleNotNumberInput = (number,alertDiv,inputFocus) => {
+const handleNotNumberInput = (number,alertDiv,inputFocus) => { 
   //for onkeyup events
   if(!(number+1)||number<0) {
     alertDiv.classList.remove("hidden-div")
     rootVar.setProperty(inputFocus,"var(--errorColor)")
-    return
+    return 1
   } 
   
   alertDiv.classList.add("hidden-div")
   rootVar.setProperty(inputFocus,"var(--okColor)")
+  return 0
   
 }
 
@@ -55,25 +35,59 @@ const handleNotNumberInput = (number,alertDiv,inputFocus) => {
 // Once: people-input-wrapper
 const handleZeroPeople = (number,alertDiv) => {
   if(number===0) {
-    alertDiv.classList.remove("hidden-div")
-    peopleZeroErrorFlag = 1
+    alertDiv.classList.remove("hidden-div");
+    peopleZeroErrorFlag = 1;
+    // peopleErrorFlag = peopleZeroErrorFlag || peopleNotNumberErrorFlag;
     return
   }
 
   alertDiv.classList.add("hidden-div")
   peopleZeroErrorFlag = 0
+  // peopleErrorFlag = peopleZeroErrorFlag || peopleNotNumberErrorFlag;
 }
+
 
 const handleNonInteger = (number,alertDiv) => {
 
   if(number<0 || (number !== Math.floor(number))) {
     alertDiv.classList.remove("hidden-div")
     peopleNotNumberErrorFlag = 1
+    // peopleErrorFlag = peopleZeroErrorFlag || peopleNotNumberErrorFlag;
     return
   }
   
   alertDiv.classList.add("hidden-div")
   peopleNotNumberErrorFlag = 0
+  // peopleErrorFlag = peopleZeroErrorFlag || peopleNotNumberErrorFlag;
+}
+
+
+// GET FUNCTIONS
+const getBill = (billErrorFlag) => {
+  if(billErrorFlag) return 0
+  return Number(billMount.value)
+}
+
+
+const getTipPercent = (customErrorFlag) => {
+  if(customErrorFlag) return 0
+}
+
+
+const getNumPeople = (peopleErrorFlag) => {
+  if(peopleErrorFlag) return 1
+  return Number(peopleNum.value)
+}
+
+
+// MATH FUNCTIONS
+const calcTipByPerson = (bill,tipPercent,numPeople) => {
+  return (bill*tipPercent*0.01)/numPeople 
+}
+
+
+const calcTotalByPerson = (bill,numPeople,tipByPers) => {
+  return (bill/numPeople) + tipByPers
 }
 
 
@@ -82,7 +96,8 @@ const handleNonInteger = (number,alertDiv) => {
 const billInputWrapper = document.querySelector("#bill-input-wrapper");
 const billNotNumber = document.querySelector("#bill-not-number")
 const billMount = document.querySelector("#bill-mount");
-
+let billErrorFlag = 0
+let bill = 0
 
 billInputWrapper.onclick = () => {
   billMount.focus();
@@ -98,14 +113,54 @@ billMount.onkeydown = (event) => {
   handleInitialZero(event,pressedKey,inputStr,inputNum)
 }
 
+
 billMount.onkeyup = (event) => {
 
   // pressedKey = Number(event.key)
   inputStr = event.target.value
   inputNum = Number(inputStr)
 
-  handleNotNumberInput(inputNum,billNotNumber,"--billBorderColor")
+  billErrorFlag = handleNotNumberInput(inputNum,billNotNumber,"--billBorderColor") || (!inputStr)
+
+  
+  bill = getBill(billErrorFlag)
+  numberOfPeople = getNumPeople(peopleErrorFlag)
+
+  // pendiente obtener el % de propina !
+  
+
 }
+
+
+// billMount.onchange = (event) => {
+//   // console.log(event.target.value)
+//   console.log("hola$")
+// }
+
+// billMount.onchange = function() {myFunction()};
+
+// function myFunction() {
+//   var x = document.getElementById("bill-mount");
+//   x.value = x.value.toUpperCase();
+// }
+
+
+
+// billMount.onchange = (event) => {
+//   // myFunction()
+
+//   console.log(event)
+//   // var x = document.getElementById("bill-mount");
+//   // event.target.value = event.target.value.toUpperCase();
+
+// };
+
+// function myFunction() {
+  
+// }
+
+
+
 
 
 // SECTION:  custom-input
@@ -119,13 +174,10 @@ customInput.onkeydown = (event) => {
   handleInitialZero(event,pressedKey,inputStr,inputNum)
 }
 
+
 customInput.onkeyup = (event) => {
   inputStr = event.target.value
   inputNum = Number(inputStr)
-
-  // !(inputNum+1)||inputNum<0 
-  //   ? rootVar.setProperty("--customBorderColor","var(--errorColor)") 
-  //   : rootVar.setProperty("--customBorderColor","var(--okColor)")
 
   if(!(inputNum+1)||inputNum<0) {
     rootVar.setProperty("--customBorderColor","var(--errorColor)")
@@ -135,8 +187,8 @@ customInput.onkeyup = (event) => {
   
   rootVar.setProperty("--customBorderColor","var(--okColor)")
   customInput.classList.remove("custom-error")
-  
 }
+
 
 
 // SECTION: people-input-wrapper
@@ -146,7 +198,8 @@ const peopleNotNumber = document.querySelector("#people-not-number")
 const peopleNum = document.querySelector("#people-num");
 let peopleZeroErrorFlag = 0
 let peopleNotNumberErrorFlag = 0
-
+let peopleErrorFlag = 0
+let numberOfPeople = 0
 
 peopleInputWrapper.onclick = () => {
   peopleNum.focus();
@@ -169,17 +222,18 @@ peopleNum.onkeyup = (event) => {
   inputStr = event.target.value
   inputNum = Number(inputStr)
 
-  console.log(inputStr)
-  console.log(inputNum)
+  // console.log(inputStr)
+  // console.log(inputNum)
 
-  handleNotNumberInput(inputNum,peopleNotNumber,"--peopleBorderColor")
+  peopleNotNumberErrorFlag = handleNotNumberInput(inputNum,peopleNotNumber,"--peopleBorderColor")
 
   handleNonInteger(inputNum,peopleNotNumber)
 
   handleZeroPeople(inputNum,peopleZero)
 
+  peopleErrorFlag = peopleZeroErrorFlag || peopleNotNumberErrorFlag;
   
-  peopleZeroErrorFlag || peopleNotNumberErrorFlag 
+  peopleErrorFlag 
     ? rootVar.setProperty("--peopleBorderColor","var(--errorColor)") 
     : rootVar.setProperty("--peopleBorderColor","var(--okColor)")
   
