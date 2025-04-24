@@ -5,3 +5,6 @@ pruebas:
 * -1
 * -10
 * 0.1
+
+
+Hover en símbolo dolar/persona

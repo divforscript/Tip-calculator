@@ -1,9 +1,27 @@
 const rootVar = document.documentElement.style;
 const peopleZero = document.querySelector("#people-zero");
 
-let pressedKey = ""
-let inputStr = ""
-let inputNum = 0
+const bodyDiv = document.querySelector("body")
+
+
+// bodyDiv.onclick = () => {
+//   billMount.style.setProperty("border","none")
+//   peopleNum.style.setProperty("border","none")
+// }
+
+// let pressedKey = ""
+// let inputStr = ""
+// let inputNum = 0
+
+// let isBillHover = 0
+// let isBillFocus = 0
+
+// let isPeopleHover = 0
+// let isPeopleFocus = 0
+
+// let isCustomHover = 0
+// let isCustomFocus = 0
+
 
 // FUNCTIONS
 // Both: bill-input-wrapper and people-input-wrapper
@@ -39,27 +57,23 @@ const handleZeroPeople = (number,alertDiv) => {
   if(number===0) {
     alertDiv.classList.remove("hidden-div")
     peopleZeroErrorFlag = 1
-    // rootVar.setProperty(inputFocus,"var(--errorFocus)")
     return
   }
+
   alertDiv.classList.add("hidden-div")
   peopleZeroErrorFlag = 0
-  // rootVar.setProperty(inputFocus,"var(--okFocus)")
 }
 
 const handleNonInteger = (number,alertDiv) => {
 
   if(number<0 || (number !== Math.floor(number))) {
     alertDiv.classList.remove("hidden-div")
-    // rootVar.setProperty(inputFocus,"var(--errorFocus)")
     peopleNotNumberErrorFlag = 1
     return
   }
   
-  
   alertDiv.classList.add("hidden-div")
   peopleNotNumberErrorFlag = 0
-  // rootVar.setProperty(inputFocus,"var(--okFocus)")
 }
 
 
@@ -70,10 +84,10 @@ const billNotNumber = document.querySelector("#bill-not-number")
 const billMount = document.querySelector("#bill-mount");
 
 
-
 billInputWrapper.onclick = () => {
-  billMount.focus()
+  billMount.focus();
 }
+
 
 billMount.onkeydown = (event) => {
   
@@ -86,13 +100,43 @@ billMount.onkeydown = (event) => {
 
 billMount.onkeyup = (event) => {
 
-  pressedKey = Number(event.key)
+  // pressedKey = Number(event.key)
   inputStr = event.target.value
   inputNum = Number(inputStr)
 
   handleNotNumberInput(inputNum,billNotNumber,"--billBorderColor")
 }
 
+
+// SECTION:  custom-input
+const customInput = document.querySelector("#custom")
+
+customInput.onkeydown = (event) => {
+  pressedKey = event.key
+  inputStr = event.target.value
+  inputNum = Number(inputStr)
+
+  handleInitialZero(event,pressedKey,inputStr,inputNum)
+}
+
+customInput.onkeyup = (event) => {
+  inputStr = event.target.value
+  inputNum = Number(inputStr)
+
+  // !(inputNum+1)||inputNum<0 
+  //   ? rootVar.setProperty("--customBorderColor","var(--errorColor)") 
+  //   : rootVar.setProperty("--customBorderColor","var(--okColor)")
+
+  if(!(inputNum+1)||inputNum<0) {
+    rootVar.setProperty("--customBorderColor","var(--errorColor)")
+    customInput.classList.add("custom-error")
+    return
+  } 
+  
+  rootVar.setProperty("--customBorderColor","var(--okColor)")
+  customInput.classList.remove("custom-error")
+  
+}
 
 
 // SECTION: people-input-wrapper
@@ -105,7 +149,7 @@ let peopleNotNumberErrorFlag = 0
 
 
 peopleInputWrapper.onclick = () => {
-  peopleNum.focus()
+  peopleNum.focus();
 }
 
 
@@ -121,7 +165,7 @@ peopleNum.onkeydown = (event) => {
 
 peopleNum.onkeyup = (event) => {
 
-  pressedKey = Number(event.key)
+  // pressedKey = Number(event.key)
   inputStr = event.target.value
   inputNum = Number(inputStr)
 
@@ -130,13 +174,15 @@ peopleNum.onkeyup = (event) => {
 
   handleNotNumberInput(inputNum,peopleNotNumber,"--peopleBorderColor")
 
-  handleZeroPeople(inputNum,peopleZero)
-
   handleNonInteger(inputNum,peopleNotNumber)
 
-  peopleZeroErrorFlag || peopleNotNumberErrorFlag ? rootVar.setProperty("--peopleBorderColor","var(--errorColor)") : rootVar.setProperty("--peopleBorderColor","var(--okColor)")
-  
+  handleZeroPeople(inputNum,peopleZero)
 
+  
+  peopleZeroErrorFlag || peopleNotNumberErrorFlag 
+    ? rootVar.setProperty("--peopleBorderColor","var(--errorColor)") 
+    : rootVar.setProperty("--peopleBorderColor","var(--okColor)")
+  
 }
 
 
