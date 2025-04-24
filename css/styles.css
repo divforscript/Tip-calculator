@@ -5,9 +5,11 @@
 }
 
 :root {
- 
   --errorColor:  rgb(214, 73, 49);
   --okColor: hsl(172, 67%, 45%);
+
+
+  --customBorderColor: var(--okColor);
 
   /* <inputFocus> argument in JS function <handleNotNumberInput> */
   --billBorderColor: var(--okColor); 
@@ -61,16 +63,22 @@ main {
   display: none;
 }
 
+/* .indirect-hover {
+  border: solid var(--billBorderColor);
+  cursor: pointer;
+} */
+
 
 #costumize-wrapper {
   width: 100%;
   height: 470px;
   padding: 10px;
+
 }
 
 .main-input-section {
   width: 100%;
-  height: 75px;
+  height: 85px;
 
   font-size: 18px;
 
@@ -94,28 +102,30 @@ main {
   color: rgb(214, 73, 49);
 }
 
-/* #bill-not-number {
-  display: none;
-} */
-
 .number-input-wrapper {
-  position: relative;
+  background-color: brown;
+  width: 100%;
+  height: 50px;
 
   display: flex;
   align-items: center;
+
+  border-radius: 7px;
+
 }
 
+
 .number-input-wrapper > svg {
-  width: 16px;
   position: absolute;
   transform: translate(16px);
 }
 
 .number-input {
   background-color: hsl(185, 41%, 84%);
-  width: 100%;
-  height: 50px;
 
+  width: 100%;
+  height: 100%;
+  
   font-family: 'Space Mono', sans-serif;
   font-size: 24px;
   color: hsl(183, 100%, 15%);
@@ -129,14 +139,17 @@ main {
   padding-right: 16px;
 }
 
+.number-input::placeholder{
+  color: hsl(186, 14%, 43%);
+}
 
-.bill-number-input:hover {
-  border: solid var(--billBorderColor);
+#bill-input-wrapper:hover{
+  outline: solid var(--billBorderColor);
   cursor: pointer;
 }
 
 .bill-number-input:focus {
-  border: solid var(--billBorderColor);
+  outline: solid var(--billBorderColor);
   cursor: pointer;
 }
 
@@ -190,6 +203,12 @@ main {
   align-items: center;
 }
 
+.tip-percent:hover {
+  cursor: pointer;
+  background-color: hsl(170, 66%, 66%);
+  color: hsl(183, 100%, 15%);
+}
+
 
 #tip-percentages > ul > :nth-child(1){
   grid-area: 1/1/2/2;
@@ -209,54 +228,43 @@ main {
   grid-area: 3/1/4/2;
 }
 
+.custom-error {
+  border: solid var(--customBorderColor);
+}
 
-#tip-percentages > ul > input {
+.custom-input {
+  width: 100%;
+  height: 55px;
+
   grid-area: 3/2/4/3;
-
-  background-color: hsl(185, 41%, 84%);
-
-  color: hsl(183, 100%, 15%);
-  font-family: 'Space Mono', serif;
-  font-size: 24px;
-  text-align: end;
-
-  outline: none;
-  border: none;
-  padding-right: 20px;
-
 }
 
-#tip-percentages > ul > input::placeholder{
-  color: hsl(186, 14%, 43%);
-}
-
-#tip-percentages > ul > input:focus {
-  border: solid hsl(172, 67%, 45%);
+.custom-input:hover {
+  border: solid var(--customBorderColor);
   cursor: pointer;
 }
+
+.custom-input:focus {
+  border: solid var(--customBorderColor);
+  cursor: pointer;
+}
+
+
 
 #people-not-number{
   text-align: end;
 }
 
-.people-number-input:hover {
-  border: solid var(--peopleBorderColor);
+
+#people-input-wrapper:hover{
+  outline: solid var(--peopleBorderColor);
   cursor: pointer;
 }
 
 .people-number-input:focus {
-  border: solid var(--peopleBorderColor);
+  outline: solid var(--peopleBorderColor);
   cursor: pointer;
 }
-
-/* #people-zero { 
-  display: none;
-}
-
-#people-not-number {
-  display: none;
-  text-align: end;
-} */
 
 
 #calculator-wrapper {
@@ -342,7 +350,7 @@ main {
   
   main {
     width: 940px;
-    height: 500px;
+    height: 510px;
 
     border-radius: 30px;
   
@@ -356,7 +364,7 @@ main {
   
   #costumize-wrapper {
     width: 520px;
-    height: 440px;
+    height: 450px;
     padding: 10px;
 
     overflow: auto;
@@ -387,19 +395,14 @@ main {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr  1fr;
     row-gap: 0px;
-    column-gap: 0px;
+    column-gap: 22px;
   }
   
   .tip-percent {
-    width: 125px;
+    width: 100%;
     height: 55px;
   }
 
-  .tip-percent:hover {
-    cursor: pointer;
-    background-color: hsl(170, 66%, 66%);
-    color: hsl(183, 100%, 15%);
-  }
   
   
   #tip-percentages > ul > :nth-child(1){
@@ -423,7 +426,9 @@ main {
   }
   
   
-  #tip-percentages > ul > input {
+  .custom-input {
+    width: 100%;
+    height: 55px;
     grid-area: 2/3/3/4;
   }
 
