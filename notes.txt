@@ -1,0 +1,7 @@
+pruebas: 
+
+* letras + números
+* -0.4
+* -1
+* -10
+* 0.1
