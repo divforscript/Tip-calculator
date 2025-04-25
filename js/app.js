@@ -1,5 +1,5 @@
 const rootVar = document.documentElement.style;
-const peopleZero = document.querySelector("#people-zero");
+
 
 let tipAmountByPerson = 0
 let totalByPerson = 0
@@ -36,8 +36,10 @@ function handleNotNumberInput(number,alertDiv,inputFocus) {
 
 // Once: select-tip wrapper div
 function handleTipClick(selectedPercent,tipFlag) {
-  
+
   customInput.value = ""
+  rootVar.setProperty("--customBorderColor","var(--okColor)")
+  customInput.classList.remove("custom-error")
 
   if(tipFlag){
     selectedPercent.classList.add("selected-tip")
@@ -352,7 +354,7 @@ customInput.onkeyup = (event) => {
 
 // SECTION: people-input-wrapper
 const peopleInputWrapper = document.querySelector("#people-input-wrapper");
-// const peopleZero = document.querySelector("#people-zero");
+const peopleZero = document.querySelector("#people-zero");
 const peopleNotNumber = document.querySelector("#people-not-number")
 const peopleNum = document.querySelector("#people-num");
 let peopleZeroErrorFlag = 0
@@ -420,6 +422,24 @@ resetButton.onclick = () => {
   bill = 0
   tipPercent = 0
   numberOfPeople = 1
+
+  tip1.classList.remove("selected-tip")
+  tip2.classList.remove("selected-tip")
+  tip3.classList.remove("selected-tip")
+  tip4.classList.remove("selected-tip")
+  tip5.classList.remove("selected-tip")
+
+
+  billNotNumber.classList.add("hidden-div")
+  rootVar.setProperty("--billBorderColor","var(--okColor)")
+  
+  rootVar.setProperty("--customBorderColor","var(--okColor)")
+  customInput.classList.remove("custom-error")
+  
+  peopleZero.classList.add("hidden-div")
+  peopleNotNumber.classList.add("hidden-div")
+  rootVar.setProperty("--peopleBorderColor","var(--okColor)")
+
   setCalculatedValues();
 }
 
