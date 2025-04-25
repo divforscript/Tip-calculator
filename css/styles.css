@@ -191,7 +191,7 @@ main {
 .tip-percent {
   caret-color: transparent;
   cursor: pointer;
-  background-color: hsl(183, 100%, 15%);;
+  background-color: hsl(183, 100%, 15%);
   color: white;
 
   list-style: none;
@@ -207,9 +207,19 @@ main {
   align-items: center;
 }
 
+.tip-percent:hover {
+  background-color: hsl(170, 66%, 66%);
+  color: hsl(183, 100%, 15%);
+}
 
-.tip0 {
-  display: none;
+.tip-percent:focus {
+  background-color: hsl(172, 65%, 46%);
+  color: hsl(183, 100%, 15%);
+}
+
+.selected-tip {
+  background-color: hsl(172, 65%, 46%);
+  color: hsl(183, 100%, 15%);
 }
 
 .tip1 {
