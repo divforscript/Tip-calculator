@@ -207,10 +207,7 @@ main {
   align-items: center;
 }
 
-.tip-percent:hover {
-  background-color: hsl(170, 66%, 66%);
-  color: hsl(183, 100%, 15%);
-}
+
 
 .tip-percent:focus {
   background-color: hsl(172, 65%, 46%);
@@ -417,7 +414,10 @@ main {
     height: 55px;
   }
 
-  
+  .tip-percent:hover {
+    background-color: hsl(170, 66%, 66%);
+    color: hsl(183, 100%, 15%);
+  }
   
   .tip1 {
     grid-area: 1/1/2/2;
