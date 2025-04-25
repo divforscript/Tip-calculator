@@ -1,4 +1,8 @@
-let var1 = 5.32
 
-console.log(var1)
 
+
+
+let tipPercent = 0
+
+localErrorFlag = (!"slsd" || !tipPercent || !"sads")
+console.log(localErrorFlag)

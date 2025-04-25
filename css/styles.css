@@ -14,6 +14,7 @@
   /* <inputFocus> argument in JS function <handleNotNumberInput> */
   --billBorderColor: var(--okColor); 
   --peopleBorderColor: var(--okColor);
+
 }
 
 body {
@@ -186,7 +187,10 @@ main {
 
 }
 
+
 .tip-percent {
+  caret-color: transparent;
+  cursor: pointer;
   background-color: hsl(183, 100%, 15%);
   color: white;
 
@@ -204,27 +208,37 @@ main {
 }
 
 .tip-percent:hover {
-  cursor: pointer;
   background-color: hsl(170, 66%, 66%);
   color: hsl(183, 100%, 15%);
 }
 
+.tip-percent:focus {
+  background-color: hsl(172, 65%, 46%);
+  color: hsl(183, 100%, 15%);
+}
 
-#tip-percentages > ul > :nth-child(1){
+.selected-tip {
+  background-color: hsl(172, 65%, 46%);
+  color: hsl(183, 100%, 15%);
+}
+
+.tip1 {
   grid-area: 1/1/2/2;
 }
 
-#tip-percentages > ul > :nth-child(2){
+.tip2 {
   grid-area: 1/2/2/3;
 }
 
-#tip-percentages > ul > :nth-child(3){
+.tip3 {
   grid-area: 2/1/3/2;
 }
-#tip-percentages > ul > :nth-child(4){
+
+.tip4 {
   grid-area: 2/2/3/3;
 }
-#tip-percentages > ul > :nth-child(5){
+
+.tip5 {
   grid-area: 3/1/4/2;
 }
 
@@ -405,23 +419,23 @@ main {
 
   
   
-  #tip-percentages > ul > :nth-child(1){
+  .tip1 {
     grid-area: 1/1/2/2;
   }
   
-  #tip-percentages > ul > :nth-child(2){
+  .tip2 {
     grid-area: 1/2/2/3;
   }
   
-  #tip-percentages > ul > :nth-child(3){
+  .tip3 {
     grid-area: 1/3/2/4;
   }
 
-  #tip-percentages > ul > :nth-child(4){
+  .tip4 {
     grid-area: 2/1/3/2;
   }
 
-  #tip-percentages > ul > :nth-child(5){
+  .tip5 {
     grid-area: 2/2/3/3;
   }
   
