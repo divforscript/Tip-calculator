@@ -5,6 +5,19 @@ pruebas:
 * -1
 * -10
 * 0.1
-
+* custom: 100 / 0 / 25
 
 Hover en símbolo dolar/persona
+
+pendiente restricciones para custom %
+
+
+
+* pendiente dejar hover en los % al hacer click
+* la selección del % no debe retirarse al hacer click en otro lado
+* se debe poder seleccionar y deseleccionar un % al hacer click
+
+
+
+
+

@@ -1,10 +1,13 @@
 const rootVar = document.documentElement.style;
 const peopleZero = document.querySelector("#people-zero");
 
+let tipAmountByPerson = 0
+let totalByPerson = 0
+
 
 // HANDLE INPUT-BOXES FUNCTIONS
 // Both: bill-input-wrapper and people-input-wrapper
-const handleInitialZero = (event,pressKey,inputStr,inputNum) => {
+function handleInitialZero (event,pressKey,inputStr,inputNum) {
   //for onkeydown events
   if(pressKey==="." && inputNum===0){
     event.target.value = "0"
@@ -17,7 +20,7 @@ const handleInitialZero = (event,pressKey,inputStr,inputNum) => {
 }
 
 
-const handleNotNumberInput = (number,alertDiv,inputFocus) => { 
+function handleNotNumberInput(number,alertDiv,inputFocus) { 
   //for onkeyup events
   if(!(number+1)||number<0) {
     alertDiv.classList.remove("hidden-div")
@@ -31,9 +34,12 @@ const handleNotNumberInput = (number,alertDiv,inputFocus) => {
   
 }
 
+// Once: select-tip wrapper div
+
+
 
 // Once: people-input-wrapper
-const handleZeroPeople = (number,alertDiv) => {
+function handleZeroPeople(number,alertDiv) {
   if(number===0) {
     alertDiv.classList.remove("hidden-div");
     peopleZeroErrorFlag = 1;
@@ -47,7 +53,7 @@ const handleZeroPeople = (number,alertDiv) => {
 }
 
 
-const handleNonInteger = (number,alertDiv) => {
+function handleNonInteger(number,alertDiv) {
 
   if(number<0 || (number !== Math.floor(number))) {
     alertDiv.classList.remove("hidden-div")
@@ -63,31 +69,65 @@ const handleNonInteger = (number,alertDiv) => {
 
 
 // GET FUNCTIONS
-const getBill = (billErrorFlag) => {
+function getBill(billErrorFlag)  {
   if(billErrorFlag) return 0
   return Number(billMount.value)
 }
 
 
-const getTipPercent = (customErrorFlag) => {
+function getCustomPercent(customErrorFlag) {
   if(customErrorFlag) return 0
+  return Number(custom.value)*0.01
 }
 
 
-const getNumPeople = (peopleErrorFlag) => {
+function getNumPeople (peopleErrorFlag) {
   if(peopleErrorFlag) return 1
-  return Number(peopleNum.value)
+  return peopleNum.value? Number(peopleNum.value) : 1
 }
 
 
 // MATH FUNCTIONS
-const calcTipByPerson = (bill,tipPercent,numPeople) => {
-  return (bill*tipPercent*0.01)/numPeople 
+function calcTipByPerson(bill,tipPercent,numPeople) {
+  return (bill*tipPercent)/numPeople
 }
 
 
-const calcTotalByPerson = (bill,numPeople,tipByPers) => {
+function calcTotalByPerson(bill,numPeople,tipByPers) {
   return (bill/numPeople) + tipByPers
+}
+
+
+// SET CALCULATED VALUES FUNCTIONS
+function setCalculatedValues() {
+  bill = getBill(billErrorFlag)
+  numberOfPeople = getNumPeople(peopleErrorFlag)
+
+  tipAmountByPerson = calcTipByPerson(bill,tipPercent,numberOfPeople)
+  totalByPerson = calcTotalByPerson(bill,numberOfPeople,tipAmountByPerson)
+
+
+  tipAmountValue.textContent = "$"+(Math.trunc(tipAmountByPerson*100)/100).toFixed(2)
+  totalMountValue.textContent = "$"+totalByPerson.toFixed(2)
+}
+
+
+
+// SECTION: CALCULATION
+const tipAmountValue = document.querySelector("#tipAmount-byPerson")
+const totalMountValue = document.querySelector("#total-mount")
+const resetButton = document.querySelector("#reset-button")
+
+resetButton.onclick = () => {
+
+  billMount.value = ""
+  customInput.value = ""
+  peopleNum.value = ""
+
+  bill = 0
+  tipPercent = 0
+  numberOfPeople = 1
+  setCalculatedValues();
 }
 
 
@@ -122,49 +162,185 @@ billMount.onkeyup = (event) => {
 
   billErrorFlag = handleNotNumberInput(inputNum,billNotNumber,"--billBorderColor") || (!inputStr)
 
+  setCalculatedValues();
   
-  bill = getBill(billErrorFlag)
-  numberOfPeople = getNumPeople(peopleErrorFlag)
+  // console.log(event)
+  // console.log(bill)
+  // console.log(tipPercent)
+  // console.log(numberOfPeople)
 
-  // pendiente obtener el % de propina !
-  
-
+  // console.log(tipAmountByPerson)
+  // console.log(totalByPerson)
 }
 
 
-// billMount.onchange = (event) => {
-//   // console.log(event.target.value)
-//   console.log("hola$")
-// }
 
-// billMount.onchange = function() {myFunction()};
+// SECTION: TIP PERCENT
+// select tip
+const tip0 = document.querySelector("#tip0") // TIP0
+let tip0Flag = false
 
-// function myFunction() {
-//   var x = document.getElementById("bill-mount");
-//   x.value = x.value.toUpperCase();
-// }
+const tip1 = document.querySelector("#tip1") // 5%
+let tip1Flag = false
+
+const tip2 = document.querySelector("#tip2") // 10%
+let tip2Flag = false
+
+const tip3 = document.querySelector("#tip3") // 15%
+let tip3Flag = false
+
+const tip4 = document.querySelector("#tip4") // 25%
+let tip4Flag = false
+
+const tip5 = document.querySelector("#tip5") // 50%
+let tip5Flag = false
+
+let prevTip = tip0
+// let prevTipFlag = tip0Flag
+let tipPercent = 0
 
 
+function handleTipHover(selectedPercent,tipFlag,type) {
+  if(!tipFlag && type==="ovr"){
+    selectedPercent.style.setProperty("background-color","hsl(170, 66%, 66%)")
+    selectedPercent.style.setProperty("color","hsl(183, 100%, 15%)")
+    return
+  }
 
-// billMount.onchange = (event) => {
-//   // myFunction()
+  if(!tipFlag){
+    selectedPercent.style.setProperty("background-color","hsl(183, 100%, 15%)")
+    selectedPercent.style.setProperty("color","white")
+  }
+}
 
-//   console.log(event)
-//   // var x = document.getElementById("bill-mount");
-//   // event.target.value = event.target.value.toUpperCase();
 
-// };
+function handleTipClick(selectedPercent,tipFlag,prevTip) {
+  handleTipHover(prevTip,false,"")
+  if(prevTip.id.includes("1")) tip1Flag = selectedPercent.id === prevTip.id ? tip1Flag : false
+  if(prevTip.id.includes("2")) tip2Flag = selectedPercent.id === prevTip.id ? tip2Flag : false
+  if(prevTip.id.includes("3")) tip3Flag = selectedPercent.id === prevTip.id ? tip3Flag : false
+  if(prevTip.id.includes("4")) tip4Flag = selectedPercent.id === prevTip.id ? tip4Flag : false
+  if(prevTip.id.includes("5")) tip5Flag = selectedPercent.id === prevTip.id ? tip5Flag : false
 
-// function myFunction() {
   
-// }
+  if(tipFlag){
+    handleTipHover(selectedPercent,!tipFlag,"ovr")
+    return
+  }
+
+  handleTipHover(selectedPercent,tipFlag,"")
+}
+
+// function unselectTips()
+
+
+tip1.onclick = () => {
+  tipPercent = 0.05;
+
+  tip1Flag = !tip1Flag
+  // console.log(typeof prevTip.id)
+  handleTipClick(tip1,tip1Flag,prevTip)
+  prevTip = tip1;
+
+
+  setCalculatedValues();
+}
+
+tip1.onmouseover = () => {
+  handleTipHover(tip1,tip1Flag,"ovr")
+}
+
+tip1.onmouseout = () => {
+  handleTipHover(tip1,tip1Flag,"")
+}
 
 
 
+tip2.onclick = () => {
+  tipPercent = 0.1;
+
+  tip2Flag = !tip2Flag
+  handleTipClick(tip2,tip2Flag,prevTip)
+  prevTip = tip2;
 
 
-// SECTION:  custom-input
+  setCalculatedValues();
+}
+
+tip2.onmouseover = () => {
+  handleTipHover(tip2,tip2Flag,"ovr")
+}
+
+tip2.onmouseout = () => {
+  handleTipHover(tip2,tip2Flag,"")
+}
+
+
+
+tip3.onclick = () => {
+  tipPercent = 0.15;
+
+  tip3Flag = !tip3Flag
+  handleTipClick(tip3,tip3Flag,prevTip)
+  prevTip = tip3;
+
+
+  setCalculatedValues();
+}
+
+tip3.onmouseover = () => {
+  handleTipHover(tip3,tip3Flag,"ovr")
+}
+
+tip3.onmouseout = () => {
+  handleTipHover(tip3,tip3Flag,"")
+}
+
+
+
+tip4.onclick = () => {
+  tipPercent = 0.25;
+
+  tip4Flag = !tip4Flag
+  handleTipClick(tip4,tip4Flag,prevTip)
+  prevTip = tip4;
+
+
+  setCalculatedValues();
+}
+
+tip4.onmouseover = () => {
+  handleTipHover(tip4,tip4Flag,"ovr")
+}
+
+tip4.onmouseout = () => {
+  handleTipHover(tip4,tip4Flag,"")
+}
+
+
+
+tip5.onclick = () => {
+  tipPercent = 0.50;
+
+  tip5Flag = !tip5Flag
+  handleTipClick(tip5,tip5Flag,prevTip)
+  prevTip = tip5;
+
+
+  setCalculatedValues();
+}
+
+tip5.onmouseover = () => {
+  handleTipHover(tip5,tip5Flag,"ovr")
+}
+
+tip5.onmouseout = () => {
+  handleTipHover(tip5,tip5Flag,"")
+}
+
+// custom-input
 const customInput = document.querySelector("#custom")
+let customErrorFlag = 0
 
 customInput.onkeydown = (event) => {
   pressedKey = event.key
@@ -179,14 +355,20 @@ customInput.onkeyup = (event) => {
   inputStr = event.target.value
   inputNum = Number(inputStr)
 
-  if(!(inputNum+1)||inputNum<0) {
+  if(!(inputNum+1)|| inputNum<0 || inputNum>100) {
     rootVar.setProperty("--customBorderColor","var(--errorColor)")
     customInput.classList.add("custom-error")
+    customErrorFlag = 1
     return
   } 
   
   rootVar.setProperty("--customBorderColor","var(--okColor)")
   customInput.classList.remove("custom-error")
+  customErrorFlag = 0
+  tipPercent = getCustomPercent(customErrorFlag)
+
+  setCalculatedValues();
+
 }
 
 
@@ -199,10 +381,15 @@ const peopleNum = document.querySelector("#people-num");
 let peopleZeroErrorFlag = 0
 let peopleNotNumberErrorFlag = 0
 let peopleErrorFlag = 0
-let numberOfPeople = 0
+let numberOfPeople = 1
 
-peopleInputWrapper.onclick = () => {
+peopleInputWrapper.onclick = (event) => {
   peopleNum.focus();
+
+
+  inputStr = event.target.value
+  inputNum = Number(inputStr)
+  handleZeroPeople(inputNum,peopleZero)
 }
 
 
@@ -236,8 +423,15 @@ peopleNum.onkeyup = (event) => {
   peopleErrorFlag 
     ? rootVar.setProperty("--peopleBorderColor","var(--errorColor)") 
     : rootVar.setProperty("--peopleBorderColor","var(--okColor)")
+
+  setCalculatedValues();
   
 }
+
+
+
+
+
 
 
 
