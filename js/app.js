@@ -1,17 +1,9 @@
 const rootVar = document.documentElement.style;
 
-const body = document.querySelector("body")
+// const body = document.querySelector("body")
 
-let currWinWidth = 0
-let currWinHeight = 0
-
-
-window.onresize = () => {
-  currWinWidth = Number(window.getComputedStyle(body).getPropertyValue("width").replace("px",""))
-
-  currWinHeight = Number(window.getComputedStyle(body).getPropertyValue("height").replace("px",""))
-
-}
+// let currWinWidth = Number(window.getComputedStyle(body).getPropertyValue("width").replace("px",""))
+// let currWinHeight = Number(window.getComputedStyle(body).getPropertyValue("height").replace("px",""))
 
 
 
@@ -184,14 +176,6 @@ billMount.onkeyup = (event) => {
   billErrorFlag = handleNotNumberInput(inputNum,billNotNumber,"--billBorderColor") 
   //|| (!inputStr)
 
-  // console.log(billErrorFlag)
-
-  billErrorFlag
-    ? rootVar.setProperty("--billHeigh","110px") 
-    : rootVar.setProperty("--billHeigh","85px")
-    
-  console.log(rootVar)
-    
 
   setCalculatedValues();
   
