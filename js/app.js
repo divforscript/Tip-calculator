@@ -1,5 +1,11 @@
 const rootVar = document.documentElement.style;
 
+// const body = document.querySelector("body")
+
+// let currWinWidth = Number(window.getComputedStyle(body).getPropertyValue("width").replace("px",""))
+// let currWinHeight = Number(window.getComputedStyle(body).getPropertyValue("height").replace("px",""))
+
+
 
 let tipAmountByPerson = 0
 let totalByPerson = 0
@@ -25,12 +31,12 @@ function handleNotNumberInput(number,alertDiv,inputFocus) {
   if(!(number+1)||number<0) {
     alertDiv.classList.remove("hidden-div")
     rootVar.setProperty(inputFocus,"var(--errorColor)")
-    return 1
+    return true
   } 
   
   alertDiv.classList.add("hidden-div")
   rootVar.setProperty(inputFocus,"var(--okColor)")
-  return 0
+  return false
   
 }
 
@@ -167,7 +173,9 @@ billMount.onkeyup = (event) => {
   inputStr = event.target.value
   inputNum = Number(inputStr)
 
-  billErrorFlag = handleNotNumberInput(inputNum,billNotNumber,"--billBorderColor") || (!inputStr)
+  billErrorFlag = handleNotNumberInput(inputNum,billNotNumber,"--billBorderColor") 
+  //|| (!inputStr)
+
 
   setCalculatedValues();
   
