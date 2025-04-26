@@ -19,5 +19,511 @@ pendiente restricciones para custom %
 
 
 
+LAST CSS BASE
+================
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --errorColor:  rgb(214, 73, 49);
+  --okColor: hsl(172, 67%, 45%);
+
+
+  --customBorderColor: var(--okColor);
+
+  /* <inputFocus> argument in JS function <handleNotNumberInput> */
+  --billBorderColor: var(--okColor); 
+  --peopleBorderColor: var(--okColor);
+
+}
+
+body {
+  background-color: hsl(185, 41%, 84%);
+
+  width: 100%;
+  height: 933px;
+
+  font-family: 'Space Mono', sans-serif;
+  font-size: 16px;
+}
+
+#page-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+#content-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+#page-logo {
+  width: 100%;
+  height: 143px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;  
+}
+
+main {
+  background-color: white;
+  width: 100%;
+  height: 790px;
+
+  border-radius: 30px 30px 0px 0px;
+  padding: 30px 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hidden-div {
+  display: none;
+}
+
+/* .indirect-hover {
+  border: solid var(--billBorderColor);
+  cursor: pointer;
+} */
+
+
+#costumize-wrapper {
+  width: 100%;
+  height: 470px;
+  padding: 10px;
+
+}
+
+.main-input-section {
+  width: 100%;
+  height: 85px;
+
+  font-size: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section-title {
+  color: hsl(186, 14%, 43%);
+  height: 26px;
+  font-size: 18px;
+}
+
+.section-title-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.alert-message {
+  color: rgb(214, 73, 49);
+}
+
+.number-input-wrapper {
+  background-color: brown;
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 7px;
+
+}
+
+
+.number-input-wrapper > svg {
+  position: absolute;
+  transform: translate(16px);
+}
+
+.number-input {
+  background-color: hsl(185, 41%, 84%);
+
+  width: 100%;
+  height: 100%;
+  
+  font-family: 'Space Mono', sans-serif;
+  font-size: 24px;
+  color: hsl(183, 100%, 15%);
+
+  border-style: none;
+  outline: none;
+  
+  border-radius: 6px;
+
+  text-align: end;
+  padding-right: 16px;
+}
+
+.number-input::placeholder{
+  color: hsl(186, 14%, 43%);
+}
+
+#bill-input-wrapper:hover{
+  outline: solid var(--billBorderColor);
+  cursor: pointer;
+}
+
+.bill-number-input:focus {
+  outline: solid var(--billBorderColor);
+  cursor: pointer;
+}
+
+
+#select-tip {
+  width: 100%;
+  height: 300px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#select-tip > p {
+  margin-top: 24px;
+}
+
+#tip-percentages {
+  margin-top: 16px;
+  height: 210px;
+}
+
+#tip-percentages > ul {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+
+  align-items: center;
+
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  
+  gap: 16px;
+
+}
+
+
+.tip-percent {
+  caret-color: transparent;
+  cursor: pointer;
+  background-color: hsl(183, 100%, 15%);
+  color: white;
+
+  list-style: none;
+  width: 100%;
+  height: 55px;
+
+  border-radius: 8px;
+
+  font-size: 24px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.tip-percent:focus {
+  background-color: hsl(172, 65%, 46%);
+  color: hsl(183, 100%, 15%);
+}
+
+.selected-tip {
+  background-color: hsl(172, 65%, 46%);
+  color: hsl(183, 100%, 15%);
+}
+
+.tip1 {
+  grid-area: 1/1/2/2;
+}
+
+.tip2 {
+  grid-area: 1/2/2/3;
+}
+
+.tip3 {
+  grid-area: 2/1/3/2;
+}
+
+.tip4 {
+  grid-area: 2/2/3/3;
+}
+
+.tip5 {
+  grid-area: 3/1/4/2;
+}
+
+.custom-error {
+  border: solid var(--customBorderColor);
+}
+
+.custom-input {
+  width: 100%;
+  height: 55px;
+
+  grid-area: 3/2/4/3;
+}
+
+.custom-input:hover {
+  border: solid var(--customBorderColor);
+  cursor: pointer;
+}
+
+.custom-input:focus {
+  border: solid var(--customBorderColor);
+  cursor: pointer;
+}
+
+
+
+#people-not-number{
+  text-align: end;
+}
+
+
+#people-input-wrapper:hover{
+  outline: solid var(--peopleBorderColor);
+  cursor: pointer;
+}
+
+.people-number-input:focus {
+  outline: solid var(--peopleBorderColor);
+  cursor: pointer;
+}
+
+
+#calculator-wrapper {
+  background-color: hsl(183, 100%, 15%);
+  width: 100%;
+  height: 230px;
+
+  border-radius: 16px;
+  margin-top: 25px;
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.calc-section {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  margin-top: 20px;
+}
+
+.calc-section > div:first-child {
+  width: 50%;
+
+  color: white;
+  font-size: 16px;
+}
+
+.calc-section > div:first-child > p:last-child {
+  color: hsl(184, 14%, 56%);
+  font-size: 14px;
+}
+
+.calc-section > div:last-child {
+  width: 50%;
+
+  color: hsl(172, 67%, 45%);
+  font-size: 24px;
+
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  
+}
+
+
+#reset-button {
+  background-color: hsl(172, 67%, 45%);
+
+  width: 100%;
+  height: 50px;
+
+  margin-top: 30px;
+  border-radius: 8px;
+  border-style: none;
+  color: hsl(183, 100%, 15%);
+  font-family: 'Space Mono', serif;
+  font-size: 24px;
+}
+
+@media only screen and (width < 330px) {
+  #people-alert-zone{
+    font-size: 12px;
+  }
+}
+
+@media only screen and (950px < width) {
+  
+  #content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  
+  #page-logo {
+    width: 940px;
+    height: 143px;
+    margin-top: 120px;
+  }
+  
+  main {
+    width: 940px;
+    height: 510px;
+
+    border-radius: 30px;
+  
+    margin-top: 40px;
+    padding: 30px;
+  
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+  }
+  
+  #costumize-wrapper {
+    width: 520px;
+    height: 450px;
+    padding: 10px;
+
+    overflow: auto;
+
+    padding: 15px;
+  }
+
+  #select-tip {
+    height: 250px;
+    justify-content: center;
+  }
+
+  #select-tip > p {
+    margin-top: 10px;
+  }
+  
+  #tip-percentages {
+    margin-top: 16px;
+    height: 150px;
+  }
+  
+  #tip-percentages > ul {
+    width: 100%;
+    height: 100%;
+
+    justify-items: center;
+    
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr  1fr;
+    row-gap: 0px;
+    column-gap: 22px;
+  }
+  
+  .tip-percent {
+    width: 100%;
+    height: 55px;
+  }
+
+  .tip-percent:hover {
+    background-color: hsl(170, 66%, 66%);
+    color: hsl(183, 100%, 15%);
+  }
+  
+  .tip1 {
+    grid-area: 1/1/2/2;
+  }
+  
+  .tip2 {
+    grid-area: 1/2/2/3;
+  }
+  
+  .tip3 {
+    grid-area: 1/3/2/4;
+  }
+
+  .tip4 {
+    grid-area: 2/1/3/2;
+  }
+
+  .tip5 {
+    grid-area: 2/2/3/3;
+  }
+  
+  
+  .custom-input {
+    width: 100%;
+    height: 55px;
+    grid-area: 2/3/3/4;
+  }
+
+  #calculator-wrapper {
+    width: 430px;
+    height: 440px;
+    padding: 35px;
+    position: relative;
+
+    margin-top: 0px;
+  }
+  
+  .calc-section {
+    margin-top: 20px;
+  }
+  
+  .calc-section > div:first-child {
+    width: 50%;
+  
+    color: white;
+    font-size: 16px;
+  }
+  
+  .calc-section > div:first-child > p:last-child {
+    color: hsl(184, 14%, 56%);
+    font-size: 14px;
+  }
+  
+  .calc-section > div:last-child {
+    font-size: 36px;
+  }
+
+  #total-wrapper {
+    margin-top: 50px;
+  }
+  
+  #reset-button {
+    margin-top: 0px;
+    position: absolute;
+    bottom: 35px;
+    width: 320px;
+  }
+
+  #reset-button:hover {
+    cursor: pointer;
+    background-color: hsl(170, 66%, 66%);
+    color: hsl(183, 100%, 15%);
+  }
+
+  
+}
+
+
+
+
+
+
+
+
 
 

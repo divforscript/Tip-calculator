@@ -15,13 +15,21 @@
   --billBorderColor: var(--okColor); 
   --peopleBorderColor: var(--okColor);
 
+
+  --less390BillHeightOk: 85px;
+  --less390BillHeightError: 110px;
+
+  
+  --billHeigh: 85px;
+
 }
 
 body {
   background-color: hsl(185, 41%, 84%);
 
   width: 100%;
-  height: 933px;
+  height: 100vh;
+  /* height: 933px; */
 
   font-family: 'Space Mono', sans-serif;
   font-size: 16px;
@@ -29,7 +37,8 @@ body {
 
 #page-wrapper {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: 933px;
 }
 
 #content-wrapper {
@@ -58,22 +67,20 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  
 }
 
 .hidden-div {
   display: none;
 }
 
-/* .indirect-hover {
-  border: solid var(--billBorderColor);
-  cursor: pointer;
-} */
-
 
 #costumize-wrapper {
   width: 100%;
   height: 470px;
   padding: 10px;
+
 
 }
 
@@ -101,6 +108,7 @@ main {
 
 .alert-message {
   color: rgb(214, 73, 49);
+  text-align: end;
 }
 
 .number-input-wrapper {
@@ -145,12 +153,12 @@ main {
 }
 
 #bill-input-wrapper:hover{
-  outline: solid var(--billBorderColor);
+  outline: solid 4px var(--billBorderColor);
   cursor: pointer;
 }
 
 .bill-number-input:focus {
-  outline: solid var(--billBorderColor);
+  outline: solid 4px var(--billBorderColor);
   cursor: pointer;
 }
 
@@ -207,7 +215,7 @@ main {
   align-items: center;
 }
 
-
+/* not .tip-percent:hover on mobile */
 
 .tip-percent:focus {
   background-color: hsl(172, 65%, 46%);
@@ -240,23 +248,24 @@ main {
 }
 
 .custom-error {
-  border: solid var(--customBorderColor);
+  border: solid 4px var(--customBorderColor);
 }
 
 .custom-input {
   width: 100%;
   height: 55px;
+  border-radius: 8px;
 
   grid-area: 3/2/4/3;
 }
 
 .custom-input:hover {
-  border: solid var(--customBorderColor);
+  border: solid 4px var(--customBorderColor);
   cursor: pointer;
 }
 
 .custom-input:focus {
-  border: solid var(--customBorderColor);
+  border: solid 4px var(--customBorderColor);
   cursor: pointer;
 }
 
@@ -268,12 +277,12 @@ main {
 
 
 #people-input-wrapper:hover{
-  outline: solid var(--peopleBorderColor);
+  outline: solid 4px var(--peopleBorderColor);
   cursor: pointer;
 }
 
 .people-number-input:focus {
-  outline: solid var(--peopleBorderColor);
+  outline: solid 4px var(--peopleBorderColor);
   cursor: pointer;
 }
 
@@ -339,13 +348,52 @@ main {
   font-size: 24px;
 }
 
-@media only screen and (width < 330px) {
+/* @media only screen and (width < 330px) {
   #people-alert-zone{
     font-size: 12px;
   }
+} */
+
+/* :root {
+  --less390BillHeightOk: 85px;
+  --less390BillHeightError: 110px;
+
+  --billHeigh: var(--less390BillHeightOk);
+} */
+
+
+@media only screen and (width < 340px) {
+  
+  #bill-not-number {
+    background-color: rebeccapurple;
+    font-size: 16px;
+  }
+
 }
 
-@media only screen and (950px < width) {
+@media only screen and (width < 390px) {
+  
+  #bill {
+    height: var(--billHeigh);
+  }
+  
+  #bill > .section-title-div {
+    background-color: black;
+    flex-direction: column;
+  }
+
+  #bill-input-wrapper {
+    height: 50px;
+  }
+}
+
+@media only screen and (390px <= width < 950px) {
+  #bill > .section-title-div {
+    background-color: darkblue;
+  }
+}
+
+@media only screen and (950px <= width) {
   
   #content-wrapper {
     display: flex;
