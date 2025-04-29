@@ -4,5 +4,5 @@
 
 let tipPercent = 0
 
-localErrorFlag = (!"slsd" || !tipPercent || !"sads")
+localErrorFlag = (!"")
 console.log(localErrorFlag)

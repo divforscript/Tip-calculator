@@ -87,6 +87,19 @@ function handleNonInteger(number,alertDiv) {
 }
 
 
+function handleResetButonStyles(){
+
+  const tipFlag = tip1Flag || tip1Flag || tip2Flag || tip3Flag || tip4Flag || tip4Flag
+
+  if(!billMount.value && !tipFlag && !customInput.value && !peopleNum.value) {
+    resetButton.classList.remove("enabled-reset-button")
+    return
+  }
+
+  resetButton.classList.add("enabled-reset-button")
+}
+
+
 // GET FUNCTIONS
 function getBill()  {
   if(billErrorFlag) return 0
@@ -126,6 +139,7 @@ function calcTotalByPerson(bill,numPeople,tipByPers) {
 
 // SET FUNCTIONS: CALCULATED VALUES 
 function setCalculatedValues() {
+  handleResetButonStyles();
   bill = getBill()
   numberOfPeople = getNumPeople()
 
@@ -142,6 +156,7 @@ function setCalculatedValues() {
 
   tipAmountValue.textContent = "$"+(Math.trunc(tipAmountByPerson*100)/100).toFixed(2)
   totalMountValue.textContent = "$"+totalByPerson.toFixed(2)
+
 }
 
 
@@ -430,6 +445,12 @@ resetButton.onclick = () => {
   bill = 0
   tipPercent = 0
   numberOfPeople = 1
+
+  tip1Flag = false
+  tip2Flag = false
+  tip3Flag = false
+  tip4Flag = false
+  tip5Flag = false
 
   tip1.classList.remove("selected-tip")
   tip2.classList.remove("selected-tip")
